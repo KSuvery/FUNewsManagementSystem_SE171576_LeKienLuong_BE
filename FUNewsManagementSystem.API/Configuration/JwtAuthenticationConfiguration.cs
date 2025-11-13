@@ -81,15 +81,7 @@ namespace FUNewsManagementSystem.API.Configuration
                     };
                 });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("RequireAdminRole", policy =>
-                    policy.RequireRole("Admin"));
-                options.AddPolicy("RequireStaffRole", policy =>
-                    policy.RequireRole("Staff"));
-                options.AddPolicy("RequireLectererRole", policy =>
-                    policy.RequireRole("Lecterer"));
-            });
+            
         }
     }
 }

@@ -160,12 +160,12 @@ namespace FUNewsManagementSystem_Service.Services
                             3 => "Admin",
                             2 => "Lecterer",
                             1 => "Staff",
-                            _ => "Unknown" // Default to unknown if unrecognized
+                            _ => "Unknown"
                         };
                     }
                     else
                     {
-                        stringRole = role; // If it's already a string
+                        stringRole = role;
                     }
                     claims.Add(new Claim(ClaimTypes.Role, stringRole));
                 }

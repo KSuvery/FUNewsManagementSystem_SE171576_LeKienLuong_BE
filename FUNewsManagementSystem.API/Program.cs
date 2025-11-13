@@ -47,6 +47,16 @@ namespace FUNewsManagementSystem.API
             builder.Services.AddSwaggerService();
             builder.Services.AddHttpContextAccessor();
 
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdminRole", policy =>
+                    policy.RequireRole("Admin"));
+                options.AddPolicy("RequireStaffRole", policy =>
+                    policy.RequireRole("Staff"));
+                options.AddPolicy("RequireLecturerRole", policy =>
+                    policy.RequireRole("Lecturer"));
+            });
+
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
@@ -58,7 +68,7 @@ namespace FUNewsManagementSystem.API
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();

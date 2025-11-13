@@ -50,6 +50,7 @@ namespace FUNewsManagementSystem.Repo.Mapper
         public partial Category MapToCategory(CategoryDTO dto);
         public partial Category CreateMapToCategory(CreateCategoryRequest request);
         [MapProperty(nameof(Category.CategoryName), nameof(CategoryDTO.CategoryName))]
+        [MapProperty(nameof(Category.ParentCategory.CategoryName), nameof(CategoryDTO.ParentCategory))]
         public partial CategoryDTO MapToCategoryDTO(Category category);
         
 

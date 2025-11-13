@@ -1,11 +1,6 @@
 ﻿using FUNewsManagementSystem.Repo.DTO;
 using FUNewsManagementSystem.Repo.Models;
 using Riok.Mapperly.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FUNewsManagementSystem.Repo.Mapper
 {
@@ -37,6 +32,7 @@ namespace FUNewsManagementSystem.Repo.Mapper
         //[MapProperty(nameof(NewsArticle.CreatedBy.AccountName), nameof(NewsArticleDTO.CreatedBy))]
         //[MapProperty(nameof(NewsArticle.UpdatedBy.AccountName), nameof(NewsArticleDTO.UpdatedBy))]
         //[MapProperty(nameof(NewsArticle.Category.CategoryName), nameof(NewsArticleDTO.Category))]
+
         public partial NewsArticle MapToNewsArticle(NewsArticleDTO dto);
         public partial NewsArticle MapCreateNewsArticleRequestToNewsArticle(CreateNewsArticleRequest request);
         public partial NewsArticleDTO MapToNewsArticleDTO(NewsArticle newsArticle);

@@ -94,8 +94,8 @@ namespace FUNewsManagementSystem_Service.Services
                 var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.AccountPassword);
                 var newAccount = new SystemAccount
                 {
-                    AccountName = request.AccountName,
-                    AccountEmail = request.AccountEmail,
+                await _repo.CreateSystemAccount(account);
+
                     AccountPassword = hashedPassword,
                     AccountRole = 2 // Default role for regular users
                 };

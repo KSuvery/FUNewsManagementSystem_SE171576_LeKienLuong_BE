@@ -59,8 +59,8 @@ namespace FUNewsManagementSystem_Service.Services
             }
 
             //database account check
-            var account = await _repo.GetSystemAccount(request.Email, request.Password);
-            if (account == null)
+            var account = await _repo.GetSystemAccountByEmail(request.Email);
+            if (account == null && BCrypt.Net.BCrypt.Verify(request.Password, account.AccountPassword))
             {
                 return null;
             }
@@ -75,6 +75,7 @@ namespace FUNewsManagementSystem_Service.Services
                 roles
             );
             var refreshToken = GenerateRefreshToken();
+
             return new LoginResponse
             {
                 Token = token,
@@ -94,12 +95,12 @@ namespace FUNewsManagementSystem_Service.Services
                 var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.AccountPassword);
                 var newAccount = new SystemAccount
                 {
-                await _repo.CreateSystemAccount(account);
-
+                    AccountName = request.AccountName,
+                    AccountEmail = request.AccountEmail,
                     AccountPassword = hashedPassword,
                     AccountRole = 2 // Default role for regular users
                 };
-                _repo.CreateSystemAccount(newAccount);
+                await _repo.CreateSystemAccount(newAccount);
                 var response = new RegisterResponse
                 {
                     AccountName = newAccount.AccountName,
@@ -136,7 +137,7 @@ namespace FUNewsManagementSystem_Service.Services
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var issuer = _config["Jwt:Issuer"];
             var audience = _config["Jwt:Audience"];
-            var tokenExpirationMinutes = int.Parse(_config["JWT:TokenExpirationMinutes"] ?? "60");
+            var tokenExpirationMinutes = int.Parse(_config["Jwt:TokenExpirationMinutes"] ?? "60");
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new List<Claim>
@@ -189,7 +190,7 @@ namespace FUNewsManagementSystem_Service.Services
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var issuer = _config["Jwt:Issuer"];
             var audience = _config["Jwt:Audience"];
-            var tokenExpirationMinutes = int.Parse(_config["JWT:TokenExpirationMinutes"] ?? "60");
+            var tokenExpirationMinutes = int.Parse(_config["Jwt:TokenExpirationMinutes"] ?? "60");
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new List<Claim>

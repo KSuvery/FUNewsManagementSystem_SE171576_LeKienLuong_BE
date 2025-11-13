@@ -9,7 +9,7 @@ namespace FUNewsManagementSystem.Repo.Repositories
         Task<SystemAccount> GetSystemAccount(string email, string password);
         Task<SystemAccount> GetSystemAccountByEmail(string email);
         Task<SystemAccount> GetProfile(int id);
-        void CreateSystemAccount(SystemAccount account);
+        Task CreateSystemAccount(SystemAccount account);
     }
     public class SystemAccountRepository : GenericRepository<SystemAccount>, ISystemAccountRepository
     {
@@ -22,7 +22,7 @@ namespace FUNewsManagementSystem.Repo.Repositories
             return await _context.SystemAccount.FirstOrDefaultAsync(s => s.AccountEmail == email && s.AccountPassword == password);
         }
 
-        public async void CreateSystemAccount(SystemAccount account)
+        public async Task CreateSystemAccount(SystemAccount account)
         {
             await CreateAsync(account);
         }

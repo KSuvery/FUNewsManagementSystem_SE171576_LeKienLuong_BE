@@ -29,10 +29,10 @@ namespace FUNewsManagementSystem.API.Configuration
                         ValidateIssuer = false,
                         ValidateAudience = false,
                         ValidateLifetime = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("SECRET_KEY") ?? (configuration["jwt:key"]))),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("SECRET_KEY") ?? (configuration["Jwt:key"]))),
                         ClockSkew = TimeSpan.Zero,
-                        ValidIssuer = configuration.GetValue<string>("SECRET_ISSUER") ?? configuration["jwt:issuer"],
-                        ValidAudience = configuration.GetValue<string>("SECRET_AUDIENCE") ?? configuration["jwt:audience"]
+                        ValidIssuer = configuration.GetValue<string>("SECRET_ISSUER") ?? configuration["Jwt:issuer"],
+                        ValidAudience = configuration.GetValue<string>("SECRET_AUDIENCE") ?? configuration["Jwt:audience"]
                     };
                     options.Events = new JwtBearerEvents
                     {
@@ -81,7 +81,21 @@ namespace FUNewsManagementSystem.API.Configuration
                     };
                 });
 
-            
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //    .AddJwtBearer(options =>
+            //    {
+            //        options.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            ValidateIssuer = true,
+            //            ValidateAudience = true,
+            //            ValidateLifetime = true,
+            //            ValidateIssuerSigningKey = true,
+            //            ValidIssuer = configuration["Jwt:Issuer"],
+            //            ValidAudience = configuration["Jwt:Audience"],
+            //            IssuerSigningKey = new SymmetricSecurityKey(
+            //    Encoding.UTF8.GetBytes (configuration["Jwt:Key"]))
+            //        };
+            //    });
         }
     }
 }

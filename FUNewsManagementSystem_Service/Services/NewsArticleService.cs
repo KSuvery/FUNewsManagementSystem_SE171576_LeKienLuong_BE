@@ -30,6 +30,7 @@ namespace FUNewsManagementSystem_Service.Services
                 var newsArticle = _mapper.MapCreateNewsArticleRequestToNewsArticle(request);
                 newsArticle.CreatedById = userId;
                 newsArticle.NewsStatus = true;
+                newsArticle.CreatedDate = DateTime.Now;
 
                 await _repo.CreateNewsArticle(newsArticle);
 
@@ -76,32 +77,33 @@ namespace FUNewsManagementSystem_Service.Services
 
         public async Task<IEnumerable<NewsArticleDTO>> GetAllNewsArticle()
         {
-            //try
-            //{
-            //    var news = await _repo.GetAllNewsArticle();
-            //    return news.Select(n => _mapper.MapToNewsArticleDTO(n));
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception(ex.Message);
-            //}
-            var news = await _repo.GetAllNewsArticle();
-            
-            var newsDTOs = news.Select(n => new NewsArticleDTO
+            try
             {
-                NewsArticleId = n.NewsArticleId,
-                NewsTitle = n.NewsTitle,
-                Headline = n.Headline,
-                CreatedDate = n.CreatedDate,
-                NewsContent = n.NewsContent,
-                NewsSource = n.NewsSource,
-                CreatedBy = n.CreatedBy?.AccountName,
-                UpdatedBy = n.UpdatedBy?.AccountName,
-                Category = n.Category?.CategoryName,
-                NewsStatus = n.NewsStatus
-            });
+                var news = await _repo.GetAllNewsArticle();
+                return news.Select(n => _mapper.MapToNewsArticleDTO(n));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
-            return newsDTOs;
+            //var news = await _repo.GetAllNewsArticle();
+
+            //var newsDTOs = news.Select(n => new NewsArticleDTO
+            //{
+            //    NewsArticleId = n.NewsArticleId,
+            //    NewsTitle = n.NewsTitle,
+            //    Headline = n.Headline,
+            //    CreatedDate = n.CreatedDate,
+            //    NewsContent = n.NewsContent,
+            //    NewsSource = n.NewsSource,
+            //    CreatedBy = n.CreatedBy?.AccountName,
+            //    UpdatedBy = n.UpdatedBy?.AccountName,
+            //    Category = n.Category?.CategoryName,
+            //    NewsStatus = n.NewsStatus
+            //});
+
+            //return newsDTOs;
         }
 
         public async Task<NewsArticleDTO?> GetNewsArticleById(int id)

@@ -159,7 +159,7 @@ namespace FUNewsManagementSystem_Service.Services
                         stringRole = roleValue switch
                         {
                             3 => "Admin",
-                            2 => "Lecterer",
+                            2 => "Lecturer",
                             1 => "Staff",
                             _ => "Unknown"
                         };

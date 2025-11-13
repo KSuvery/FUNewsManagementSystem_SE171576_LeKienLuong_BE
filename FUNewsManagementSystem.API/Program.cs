@@ -76,8 +76,8 @@ namespace FUNewsManagementSystem.API
 
             app.UseSerilogRequestLogging();
             app.UseHttpsRedirection();
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseCors("Frontend");
 
             app.MapControllers();

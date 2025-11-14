@@ -15,11 +15,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.9" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.9" />
-    <PackageReference Include="Riok.Mapperly" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\FUNewsManagementSYstem.DAO\FUNewsManagementSystem.DAO.csproj" />
   </ItemGroup>
 
 </Project>
